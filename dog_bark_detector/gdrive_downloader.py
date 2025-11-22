@@ -127,19 +127,32 @@ class GDriveDownloader:
         Returns:
             URL with confirmation token
         """
-        # Look for confirmation token
+        # Method 1: Look for confirmation token in cookies
         for key, value in response.cookies.items():
             if key.startswith('download_warning'):
                 return f"https://drive.google.com/uc?export=download&confirm={value}&id={file_id}"
 
-        # Alternative: parse token from HTML
-        token_match = re.search(r'confirm=([0-9A-Za-z_]+)', response.text)
-        if token_match:
-            confirm = token_match.group(1)
+        # Method 2: Parse confirm value from HTML form
+        confirm_match = re.search(r'name="confirm"\s+value="([^"]+)"', response.text)
+        if confirm_match:
+            confirm = confirm_match.group(1)
             return f"https://drive.google.com/uc?export=download&confirm={confirm}&id={file_id}"
 
-        # If no token found, try the original URL
-        return f"https://drive.google.com/uc?export=download&id={file_id}"
+        # Method 3: Parse from download form action URL (new Google Drive format)
+        action_match = re.search(r'action="([^"]+)"', response.text)
+        if action_match:
+            action_url = action_match.group(1)
+            # Extract confirm and uuid from form
+            confirm_match = re.search(r'name="confirm"\s+value="([^"]+)"', response.text)
+            uuid_match = re.search(r'name="uuid"\s+value="([^"]+)"', response.text)
+
+            if confirm_match and uuid_match:
+                confirm = confirm_match.group(1)
+                uuid = uuid_match.group(1)
+                return f"{action_url}?id={file_id}&export=download&confirm={confirm}&uuid={uuid}"
+
+        # Method 4: Try direct usercontent URL with confirm=t
+        return f"https://drive.usercontent.google.com/download?id={file_id}&export=download&confirm=t"
 
     @staticmethod
     def is_gdrive_url(url: str) -> bool:
