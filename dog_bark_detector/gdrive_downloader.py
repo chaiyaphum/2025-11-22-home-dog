@@ -19,7 +19,7 @@ class GDriveDownloader:
     DRIVE_URL_PATTERNS = [
         r'https://drive\.google\.com/file/d/([a-zA-Z0-9_-]+)',
         r'https://drive\.google\.com/open\?id=([a-zA-Z0-9_-]+)',
-        r'https://drive\.google\.com/uc\?id=([a-zA-Z0-9_-]+)',
+        r'[?&]id=([a-zA-Z0-9_-]+)',  # Match id= parameter (covers uc?id= and export=download&id=)
     ]
 
     def __init__(self):
