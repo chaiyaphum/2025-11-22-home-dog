@@ -138,7 +138,16 @@ Summary Statistics:
 │   ├── detector.py              # YAMNet-based dog bark detector
 │   ├── audio_processor.py       # Audio file processing utilities
 │   └── gdrive_downloader.py     # Google Drive file downloader
+├── tests/                       # Test suite
+│   ├── __init__.py              # Test package initialization
+│   ├── test_installation.py     # Installation verification tests
+│   ├── test_gdrive.py           # Google Drive functionality tests
+│   ├── test_gdrive_simple.py    # Simple URL parsing tests
+│   ├── test_real_gdrive.py      # Real download tests
+│   ├── test_download_large.py   # Large file download tests
+│   └── README.md                # Test documentation
 ├── detect_bark.py               # Main script
+├── pytest.ini                   # Pytest configuration
 ├── requirements.txt             # Python dependencies
 └── README.md                    # This file
 ```
@@ -247,6 +256,41 @@ file_path = gdrive.download_if_gdrive(
 2. **Audio Formats**: รองรับทุกรูปแบบที่ ffmpeg รองรับ
 3. **Processing Time**: ขึ้นอยู่กับความยาวของไฟล์และสเปกของเครื่อง โดยทั่วไปใช้เวลาประมาณ 1-2 วินาทีต่อนาทีของเสียง
 4. **Google Drive**: สามารถใช้ทั้ง sharing link และ direct link
+
+## 🧪 การทดสอบ (Testing)
+
+### ทดสอบการติดตั้ง
+
+ตรวจสอบว่าระบบติดตั้งถูกต้องและพร้อมใช้งาน:
+```bash
+python tests/test_installation.py
+```
+
+### รัน Test Suite ทั้งหมด
+
+```bash
+# ติดตั้ง pytest (ถ้ายังไม่มี)
+pip install pytest
+
+# รัน tests ทั้งหมด
+pytest
+
+# รันแบบ verbose
+pytest -v
+
+# รัน test file เฉพาะ
+pytest tests/test_gdrive.py
+```
+
+### Test Categories
+
+- **test_installation.py**: ตรวจสอบการติดตั้งและ dependencies
+- **test_gdrive.py**: ทดสอบการทำงานของ Google Drive downloader
+- **test_gdrive_simple.py**: ทดสอบ URL parsing (ไม่ต้องใช้ dependencies)
+- **test_real_gdrive.py**: ทดสอบการดาวน์โหลดจริงจาก Google Drive
+- **test_download_large.py**: ทดสอบการดาวน์โหลดไฟล์ขนาดใหญ่
+
+สำหรับข้อมูลเพิ่มเติม ดูที่ [tests/README.md](tests/README.md)
 
 ## 🐛 การแก้ปัญหา (Troubleshooting)
 

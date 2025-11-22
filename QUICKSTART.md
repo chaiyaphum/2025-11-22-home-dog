@@ -26,7 +26,7 @@ pip install -r requirements.txt
 ## ขั้นตอนที่ 2: ทดสอบการติดตั้ง
 
 ```bash
-python test_installation.py
+python tests/test_installation.py
 ```
 
 คุณควรเห็นข้อความ "✓ All tests passed!"
