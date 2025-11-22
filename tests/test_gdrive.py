@@ -6,8 +6,8 @@ Test script for Google Drive downloader with the provided URL.
 import sys
 import os
 
-# Add parent directory to path
-sys.path.insert(0, os.path.dirname(__file__))
+# Add parent directory to path (go up one level from tests/)
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from dog_bark_detector import GDriveDownloader
 

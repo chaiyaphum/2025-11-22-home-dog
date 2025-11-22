@@ -40,7 +40,7 @@ Channels:    Stereo
 
 ### สคริปต์ทดสอบ
 ```bash
-python test_gdrive_simple.py
+python tests/test_gdrive_simple.py
 ```
 
 ### ผลลัพธ์
@@ -81,7 +81,7 @@ Extracted File ID:
 
 ### สคริปต์ทดสอบ
 ```bash
-python test_download_large.py
+python tests/test_download_large.py
 ```
 
 ### ผลลัพธ์

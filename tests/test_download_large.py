@@ -7,7 +7,8 @@ import os
 import sys
 import re
 
-sys.path.insert(0, os.path.dirname(__file__))
+# Add parent directory to path (go up one level from tests/)
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 try:
     import requests
